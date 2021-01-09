@@ -13,7 +13,7 @@ final class MovieTransformer
             $movie['id'],
             $movie['title'],
             $movie['originalTitle'],
-            $movie['sizeOnDisk'],
+            (float)$movie['sizeOnDisk'],
             $movie['status'],
             $movie['overview'],
             $movie['year'],

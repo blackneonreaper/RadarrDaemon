@@ -11,7 +11,7 @@ final class MovieDTO
     private $title;
     /** @var string */
     private $originalTitle;
-    /** @var int */
+    /** @var float */
     private $sizeOnDisk;
     /** @var string */
     private $status;
@@ -35,7 +35,7 @@ final class MovieDTO
      * @param int $id
      * @param string $title
      * @param string $originalTitle
-     * @param int $sizeOnDisk
+     * @param float $sizeOnDisk
      * @param string $status
      * @param string $plot
      * @param int $year
@@ -49,7 +49,7 @@ final class MovieDTO
         int $id,
         string $title,
         string $originalTitle,
-        int $sizeOnDisk,
+        float $sizeOnDisk,
         string $status,
         string $plot,
         int $year,
@@ -98,9 +98,9 @@ final class MovieDTO
     }
 
     /**
-     * @return int
+     * @return float
      */
-    public function getSizeOnDisk(): int
+    public function getSizeOnDisk(): float
     {
         return $this->sizeOnDisk;
     }
