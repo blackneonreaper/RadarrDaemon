@@ -1,5 +1,5 @@
 # RadarrDaemon
-Autosearch old movies not in RSS feeds, and remove cutoff met Movies
+Autosearch old movies not in RSS feeds, and remove cutoff reached movies
 
 ## Setup
 
