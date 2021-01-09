@@ -1,0 +1,12 @@
+{
+  "autoload": {
+    "psr-4": {"RadarrDaemon\\": "src/"}
+  },
+  "require": {
+    "guzzlehttp/guzzle": "^7.0",
+    "ext-json": "*",
+    "php-di/php-di": "^6.3",
+    "mnapoli/silly": "^1.7",
+    "vlucas/phpdotenv": "^5.2"
+  }
+}
