@@ -11,13 +11,13 @@ use RadarrDaemon\Service\Radarr;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-final class DailyMovieSearch
+final class MovieSearch
 {
     /** @var Radarr */
     private $radarrService;
 
     /**
-     * DailyMovieSearch constructor.
+     * MovieSearch constructor.
      * @param Radarr $radarrService
      */
     public function __construct(Radarr $radarrService)
