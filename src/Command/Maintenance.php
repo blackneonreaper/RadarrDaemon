@@ -31,7 +31,7 @@ final class Maintenance
     {
         try {
             $completedMovies = $this->radarrService->getMovies(['cutoff' => true]);
-            if ($completedMovies->getItems() === null) {
+            if (empty($completedMovies->getItems())) {
                 return;
             }
 

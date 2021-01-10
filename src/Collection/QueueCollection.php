@@ -8,7 +8,7 @@ use RadarrDaemon\DTO\QueueItemDTO;
 final class QueueCollection
 {
     /** @var QueueItemDTO[] */
-    private $queue;
+    private $queue = [];
 
     public function addQueueItem(QueueItemDTO $queueItemDTO): void
     {
@@ -16,9 +16,9 @@ final class QueueCollection
     }
 
     /**
-     * @return QueueItemDTO[]|null
+     * @return QueueItemDTO[]s
      */
-    public function getItems(): ?array
+    public function getItems(): array
     {
         return $this->queue;
     }

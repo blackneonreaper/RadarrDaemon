@@ -39,20 +39,24 @@ final class MovieSearch
                 'cutoff' => false
             ]);
 
-            if ($incompleteMovies->getItems() === null) {
+            if (empty($incompleteMovies->getItems())) {
                 return;
             }
 
-            $currentMovieQueue = $this->radarrService->getQueueDetails();
-            foreach ($currentMovieQueue->getItems() as $queueItemDTO) {
-                if ($queueItemDTO->getStatus() === QueueItemDTO::STATUS_DOWNLOADING) {
-                    $downloading++;
-                    $incompleteMovies->removeByMovieId($queueItemDTO->getMovieId());
+            try {
+                $torrentCollection = $this->radarrService->getActiveTorrents();
+                $downloading += count($torrentCollection->getItems());
+                if ($maxDownloading <= $downloading) {
+                    return;
                 }
-            }
-
-            if ($maxDownloading <= $downloading) {
-                return;
+            } catch (Exception $exception) {
+                $currentMovieQueue = $this->radarrService->getQueueDetails();
+                foreach ($currentMovieQueue->getItems() as $queueItemDTO) {
+                    if ($queueItemDTO->getStatus() === QueueItemDTO::STATUS_DOWNLOADING) {
+                        $downloading++;
+                        $incompleteMovies->removeByMovieId($queueItemDTO->getMovieId());
+                    }
+                }
             }
 
             if ($searchAmount > ($maxDownloading - $downloading)) {

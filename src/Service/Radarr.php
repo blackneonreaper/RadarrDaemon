@@ -9,9 +9,12 @@ use GuzzleHttp\Exception\GuzzleException;
 use JsonException;
 use RadarrDaemon\Collection\MovieCollection;
 use RadarrDaemon\Collection\QueueCollection;
+use RadarrDaemon\Collection\TorrentCollection;
 use RadarrDaemon\DTO\MovieDTO;
 use RadarrDaemon\Transformer\MovieTransformer;
 use RadarrDaemon\Transformer\QueueItemTransformer;
+use RadarrDaemon\Transformer\TorrentTransformer;
+use Transmission\Transmission;
 
 final class Radarr
 {
@@ -25,22 +28,27 @@ final class Radarr
     private $movieTransformer;
     /** @var QueueItemTransformer */
     private $queueItemTransformer;
+    /** @var TorrentTransformer */
+    private $torrentTransformer;
 
     /**
      * Radarr constructor.
      * @param Client $client
      * @param MovieTransformer $movieTransformer
      * @param QueueItemTransformer $queueItemTransformer
+     * @param TorrentTransformer $torrentTransformer
      */
     public function __construct(
         Client $client,
         MovieTransformer $movieTransformer,
-        QueueItemTransformer $queueItemTransformer
+        QueueItemTransformer $queueItemTransformer,
+        TorrentTransformer $torrentTransformer
     ) {
         $this->client = $client;
         $this->init($_ENV['RADARR_ENDPOINT'], $_ENV['RADARR_APIKEY']);
         $this->movieTransformer = $movieTransformer;
         $this->queueItemTransformer = $queueItemTransformer;
+        $this->torrentTransformer = $torrentTransformer;
     }
 
     /**
@@ -85,6 +93,26 @@ final class Radarr
             }
         }
         return $movieCollection;
+    }
+
+    /**
+     * @return TorrentCollection
+     */
+    public function getActiveTorrents(): TorrentCollection
+    {
+        $torrentCollection = new TorrentCollection();
+        if (!isset($_ENV['TRANSMISSION_HOST']) || empty($_ENV['TRANSMISSION_HOST'])) {
+            return $torrentCollection;
+        }
+
+        $transmission = new Transmission($_ENV['TRANSMISSION_HOST']);
+        $torrents = $transmission->all();
+        foreach ($torrents as $torrent) {
+            if (!$torrent->isFinished()) {
+                $torrentCollection->addTorrent($this->torrentTransformer->transform($torrent));
+            }
+        }
+        return $torrentCollection;
     }
 
     /**

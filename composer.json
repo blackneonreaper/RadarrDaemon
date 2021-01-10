@@ -7,6 +7,7 @@
     "ext-json": "*",
     "php-di/php-di": "^6.3",
     "mnapoli/silly": "^1.7",
-    "vlucas/phpdotenv": "^5.2"
+    "vlucas/phpdotenv": "^5.2",
+    "kslr/transmission-php": "^1.1"
   }
 }

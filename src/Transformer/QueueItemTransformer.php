@@ -7,11 +7,15 @@ use RadarrDaemon\DTO\QueueItemDTO;
 
 final class QueueItemTransformer
 {
+    /**
+     * @param array $queueItem
+     * @return QueueItemDTO
+     */
     public function transform(array $queueItem): QueueItemDTO
     {
         return new QueueItemDTO(
             $queueItem['id'],
-            $queueItem['movieId'],
+            $queueItem['movieId'] ?? 0,
             $queueItem['title'],
             $queueItem['size'],
             $queueItem['sizeleft'],

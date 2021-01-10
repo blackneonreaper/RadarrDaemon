@@ -7,6 +7,10 @@ use RadarrDaemon\DTO\MovieDTO;
 
 final class MovieTransformer
 {
+    /**
+     * @param array $movie
+     * @return MovieDTO
+     */
     public function transform(array $movie): MovieDTO
     {
         return new MovieDTO(

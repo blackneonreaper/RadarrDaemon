@@ -8,7 +8,7 @@ use RadarrDaemon\DTO\MovieDTO;
 final class MovieCollection
 {
     /** @var MovieDTO[] */
-    private $movies;
+    private $movies = [];
 
     public function addMovie(MovieDTO $movie): void
     {
@@ -23,9 +23,9 @@ final class MovieCollection
     }
 
     /**
-     * @return MovieDTO[]|null
+     * @return MovieDTO[]
      */
-    public function getItems(): ?array
+    public function getItems(): array
     {
         return $this->movies;
     }
